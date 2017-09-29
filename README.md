@@ -42,7 +42,7 @@ To use the default installation tasks:
 
     - hosts: db
       roles:
-         - { role: kyle-benson.mssql-server }
+         - { role: kyleabenson.mssql }
 
 To use the removal tasks:
 
@@ -53,7 +53,7 @@ To use the removal tasks:
       tasks:
       - name: Run remove tasks from mssql-server role
         include_role:
-          name: mssql-server
+          name: kyleabenson.mssql
           tasks_from: remove
 
 License
