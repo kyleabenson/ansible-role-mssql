@@ -1,2 +1,5 @@
 ---
-# handlers file for mssql-server
+- name: restart iptables
+  service:
+    name: firewalld
+    state: reloaded

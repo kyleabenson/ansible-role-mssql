@@ -1,2 +1,71 @@
 ---
-# tasks file for mssql-server
+- name: Add the MsSQL server repo
+  yum_repository:
+    name: mssql
+    description: Microsoft SQL repo
+    file: /etc/yum.repos.d/msprod.repo
+    baseurl: https://packages.microsoft.com/rhel/7/mssql-server/
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    gpgcheck: yes
+
+- name: Add MsSQL command line tools repo
+  yum_repository:
+    name: mssql-cli-tools
+    description: MsSQL ommand line prod tools repo
+    file: /etc/yum.repos.d/msprod.repo
+    baseurl: https://packages.microsoft.com/rhel/7/prod/
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    gpgcheck: yes
+
+- name: Remove older unixODBC files if performing upgrade
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{unixODBC_packages}}"
+  when: upgrade
+
+- name: Update all packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install mssql-server packages
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items: "{{mssql_packages}}"
+
+- name: Install pexpect pip module
+  pip:
+    name: pexpect
+
+- name: Install mssql-cli-tool via expect
+  expect:
+    command: yum install mssql-tools -y
+    responses:
+      Do you accept the license terms\? \(Enter YES or NO\): "{{end_user_license_aggreement_consent_cli}}"
+
+- name: Add mssql tools to .bashrc
+  lineinfile:
+    dest: "{{ ansible_user_dir}}/.bashrc"
+    state: present
+    line: 'export PATH="$PATH:/opt/mssql-tools/bin"'
+
+- name: Add firewalld settings
+  firewalld:
+    zone: public
+    port: 1433/tcp
+    permanent: true
+    state: enabled
+  when: enable_iptables
+  notify: restart iptables
+
+- name: Stop any existing mssql-server
+  service:
+      name: mssql-server
+      state: stopped
+
+- name: Run mssql setup script
+  shell:  MSSQL_PID="{{edition}}" ACCEPT_EULA="{{end_user_license_aggreement_consent_server}}" MSSQL_SA_PASSWORD="{{database_password}}" /opt/mssql/bin/mssql-conf -n setup
+  register: setup_output
+  failed_when: "'Setup has completed successfully. SQL Server is now starting.' not in setup_output.stdout"
