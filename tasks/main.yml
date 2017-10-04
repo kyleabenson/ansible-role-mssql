@@ -52,7 +52,7 @@
   expect:
     command: yum install mssql-tools -y
     responses:
-      Do you accept the license terms\? \(Enter YES or NO\): "{{end_user_license_aggreement_consent_cli}}"
+      (?i)license: "{{end_user_license_aggreement_consent_cli}}"
 
 - name: Add mssql tools to .bashrc
   lineinfile:
