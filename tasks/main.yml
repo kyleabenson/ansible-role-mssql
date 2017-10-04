@@ -48,11 +48,8 @@
   pip:
     name: pexpect
 
-- name: Install mssql-cli-tool via expect
-  expect:
-    command: yum install mssql-tools -y
-    responses:
-      (?i)license: "{{end_user_license_aggreement_consent_cli}}"
+- name: Install mssql-cli-tool via command with args
+  shell: ACCEPT_EULA=Y yum install mssql-tools -y
 
 - name: Add mssql tools to .bashrc
   lineinfile:
