@@ -1,4 +1,13 @@
 ---
+- name: Add EPEL repository
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+    gpgcheck: yes
+    gpgkey: https://getfedora.org/static/352C64E5.txt
+    state: present
+
 - name: Add the MsSQL server repo
   yum_repository:
     name: mssql

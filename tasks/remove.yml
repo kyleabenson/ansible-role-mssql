@@ -4,6 +4,11 @@
     name: mssql-server
     state: stopped
 
+- name: Remove EPEL repository
+  yum_repository:
+    name: epel
+    state: absent
+
 - name: Remove the MsSQL server repo
   yum_repository:
     name: mssql
