@@ -40,10 +40,6 @@
     state: present
   with_items: "{{mssql_packages}}"
 
-- name: Install pexpect pip module
-  pip:
-    name: pexpect
-
 - name: Install mssql-cli-tool via command with args
   shell: ACCEPT_EULA=Y yum install mssql-tools -y
 
