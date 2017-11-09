@@ -1,4 +1,8 @@
 ---
+- debug:
+    msg: "Check to see if EULA variables are accepted"
+  failed_when: (end_user_license_aggreement_consent_server != "Y" )or (end_user_license_aggreement_consent_cli != "YES")
+  
 - name: Add EPEL repository via rpm
   yum:
     name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -34,6 +38,11 @@
     name: '*'
     state: latest
 
+- name: Install pymssql for future playbooks against DB server
+  pip:
+    name: pymssql
+    state: present
+
 - name: Install mssql-server packages
   yum:
     name: "{{item}}"
@@ -42,12 +51,14 @@
 
 - name: Install mssql-cli-tool via command with args
   shell: ACCEPT_EULA=Y yum install mssql-tools -y
+  when: install_cli
 
 - name: Add mssql tools to .bashrc
   lineinfile:
     dest: "{{ ansible_user_dir}}/.bashrc"
     state: present
     line: 'export PATH="$PATH:/opt/mssql-tools/bin"'
+  when: install_cli
 
 - name: Add firewalld settings
   firewalld:
@@ -64,6 +75,6 @@
       state: stopped
 
 - name: Run mssql setup script
-  shell:  MSSQL_PID="{{edition}}" ACCEPT_EULA="{{end_user_license_aggreement_consent_server}}" MSSQL_SA_PASSWORD="{{database_password}}" /opt/mssql/bin/mssql-conf -n setup
+  shell:  MSSQL_PID="{{edition}}" MSSQL_SA_PASSWORD="{{database_password}}" /opt/mssql/bin/mssql-conf -n setup accept-eula
   register: setup_output
   failed_when: "'Setup has completed successfully. SQL Server is now starting.' not in setup_output.stdout"

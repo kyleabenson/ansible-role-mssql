@@ -3,6 +3,17 @@ end_user_license_aggreement_consent_server: # Must be Y or N
 end_user_license_aggreement_consent_cli: "" # Must be YES or NO in all caps within quotes
 database_password: 'P@ssWORD!'
 edition: Developer
-restore: false
-upgrade: false
+
+# For use when creating, importing, or deleting databases
+db_name:
+db_host: 127.0.0.1
+db_port: 1433
+db_user: SA
+
+import: false
+import_file:
+import_file_dest:
+
+#System Config options
 enable_iptables: false
+install_cli: false

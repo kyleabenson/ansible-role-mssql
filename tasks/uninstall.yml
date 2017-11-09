@@ -27,7 +27,11 @@
 
 - name: Remove pexpect pip module
   pip:
-    name: pexpect
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - pexpect
+    - pymssql
 
 - name: Remove mssql-server packages
   yum:
