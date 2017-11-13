@@ -3,7 +3,6 @@
   mssql_db:
     name: "{{ db_name }}"
     state: present
-    login_host: "{{db_host}}"
-    login_port: "{{db_port}}"
+    login_host: "{{ db_host }}"
     login_user: "{{ db_user }}"
-    login_password: "{{ database_password }}"
+    login_password: "{{ db_password }}"
