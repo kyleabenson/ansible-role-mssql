@@ -39,6 +39,11 @@
     state: absent
   with_items: "{{mssql_packages}}"
 
+- name: Uninstall EPEL rpm
+  yum:
+    name: epel-release
+    state: absent
+
 - name: Remove mssql-cli-tool
   yum:
     name: mssql-tools
