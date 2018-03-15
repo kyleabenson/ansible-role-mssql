@@ -18,7 +18,7 @@
     name: mssql
     description: Microsoft SQL repo
     file: /etc/yum.repos.d/msprod
-    baseurl: https://packages.microsoft.com/rhel/7/mssql-server/
+    baseurl: https://packages.microsoft.com/rhel/7/mssql-server-2017/ 
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     gpgcheck: yes
 
