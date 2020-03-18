@@ -90,7 +90,7 @@
     - { target: '/usr/lib64/libcrypto.so.10', name: '/opt/mssql/lib/libcrypto.so' }
 
 - name: Install pymssql for future playbooks against DB server
-  pip3:
+  pip:
     name: pymssql
     state: present
 
