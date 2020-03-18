@@ -88,7 +88,12 @@
   loop:
     - { target: '/usr/lib64/libssl.so.10', name: '/opt/mssql/lib/libssl.so' }
     - { target: '/usr/lib64/libcrypto.so.10', name: '/opt/mssql/lib/libcrypto.so' }
-    
+
+- name: Install pymssql for future playbooks against DB server
+  pip:
+    name: pymssql
+    state: present
+
 - name: Add firewalld settings
   firewalld:
     zone: public
@@ -97,3 +102,5 @@
     state: enabled
   when: enable_iptables
   notify: restart iptables
+  
+  
