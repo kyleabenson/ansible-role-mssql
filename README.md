@@ -4,7 +4,7 @@ Role Name
 This role will perform the following:
 - Install and uninstall of the Microsoft SQL Server
 - Create, delete, or import (from .sql file) a database
-- Optional command line tools for RHEL 7
+- Optional command line tools for RHEL 8
 
 Requirements
 ------------
@@ -30,7 +30,7 @@ end_user_license_aggreement_consent_server: # Must be Y or N
 end_user_license_aggreement_consent_cli: "" # Must be YES or NO in all caps within quotes
 database_password: 'P@ssWORD!'
 edition: Developer
-db_user: SA
+db_user: sa
 
 # For use when creating, importing, or deleting databases
 db_name:
@@ -62,7 +62,7 @@ To use the default installation tasks:
 
     - hosts: db
       roles:
-         - { role: kyleabenson.mssql }
+         - { role: dpredhat.mssql }
 
 To use the installation and create a new db, I usually give the service a few seconds to come up before attempting to login:
 ```yaml
@@ -70,7 +70,7 @@ To use the installation and create a new db, I usually give the service a few se
 - hosts: db
   become: yes
   roles:
-    - { role: kyleabenson.mssql }
+    - { role: dpredhat.mssql }
   tasks:
     - name: Wait up to 60 seconds for server to become available after creation
       wait_for:
@@ -78,7 +78,7 @@ To use the installation and create a new db, I usually give the service a few se
         timeout: 60
     - name: Create new db
       include_role:
-        name: kyleabenson.mssql
+        name: dpredhat.mssql
         tasks_from: new_db
 ```
 
@@ -92,7 +92,7 @@ To use the uninstall tasks:
   tasks:
   - name: Run remove tasks from mssql-server role
     include_role:
-      name: kyleabenson.mssql
+      name: dpredhat.mssql
       tasks_from: uninstall
 ```
 
@@ -104,4 +104,4 @@ BSD
 Author Information
 ------------------
 
-Contributions and issues with this role are welcome at the associated git repo.
+Contributions and issues with this role are welcome at the associated git repo. This code was inspired and derived based on kyleabenson
