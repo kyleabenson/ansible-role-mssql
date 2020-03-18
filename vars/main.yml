@@ -7,11 +7,11 @@ edition: Developer
 db_name: testDB
 db_host: 127.0.0.1
 db_port: 1433
-db_user: SA
+db_user: sa
 db_password: P@ssWORD!
 
-import_file: /Users/kylebenson/Documents/Work/Vagrant/centos/Load_DB.sql
-import_file_dest: /tmp/Load_DB.sql
+import_file: 
+import_file_dest: 
 
 #System Config options
 enable_iptables: false
