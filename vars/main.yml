@@ -10,7 +10,7 @@ db_port: 1433
 db_user: sa
 db_password: P@ssWORD!
 
-import_file: InstPubs.sql 
+import_file_dest: InstPubs.sql 
 
 #System Config options
 enable_iptables: false
