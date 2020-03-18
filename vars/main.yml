@@ -4,7 +4,7 @@ end_user_license_aggreement_consent_cli: "YES" # Must be YES or NO in all caps w
 edition: evaluation
 
 # For use when creating, importing, or deleting databases
-db_name: testDB
+db_name: Pubs
 db_host: 127.0.0.1
 db_port: 1433
 db_user: sa
