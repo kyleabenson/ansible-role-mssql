@@ -49,7 +49,7 @@
     name: "*"
     state: latest
   async: 500
-  poll: 0
+  poll: 5
   register: yum_sleep
 
 - name: Check progress of update
