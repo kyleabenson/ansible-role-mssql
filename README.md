@@ -25,25 +25,17 @@ The default user is 'SA' when logging in via command line tools. The SA user is 
 
 Additionally, there are some predefined default values including:
 ```yaml
+
 # These are required for database installation
-end_user_license_aggreement_consent_server: # Must be Y or N
-end_user_license_aggreement_consent_cli: "" # Must be YES or NO in all caps within quotes
-database_password: 'P@ssWORD!'
-edition: Developer
-db_user: sa
+end_user_license_aggreement_consent_server: Y # Must be Y or N
+end_user_license_aggreement_consent_cli: "YES" # Must be YES or NO in all caps within quotes
+edition: evaluation
 
 # For use when creating, importing, or deleting databases
-db_name:
+db_name: testDB
 db_host: 127.0.0.1
 db_port: 1433
-
-import_file:
-import_file_dest:
-
-#System Config options
-enable_iptables: false
-install_cli: false
-
+db_user: sa
 ```
 I would strongly recommend modifying these for anything beyond a basic proof of concept.
 
