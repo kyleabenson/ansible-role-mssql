@@ -68,8 +68,8 @@
 - name: Run mssql-conf setup
   command: /opt/mssql/bin/mssql-conf -n setup accept-eula
   environment:
-    - MSSQL_SA_PASSWORD: "{{db_password}}"
-    - MSSQL_PID: "{{edition}}"
+    - MSSQL_SA_PASSWORD: "{{ db_password }}"
+    - MSSQL_PID: "{{ edition }}"
   when: install is changed
 
 - name: Add mssql-tools to $PATH
