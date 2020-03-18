@@ -9,7 +9,7 @@
     name: "{{ db_name }}"
     state: import
     target: "{{ import_file_dest }}"
-    login_host: "{{db_host}}"
-    login_port: "{{db_port}}"
+    login_host: "{{ db_host }}"
+    login_port: "{{ db_port }}"
     login_user: "{{ db_user }}"
     login_password: "{{ db_password }}"
