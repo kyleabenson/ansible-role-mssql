@@ -49,7 +49,7 @@
     name: "*"
     state: latest
   async: 500
-  poll: 5
+  poll: 0
   register: yum_sleep
 
 - name: Check progress of update
@@ -58,6 +58,7 @@
   register: job_result
   until: job_result.finished
   retries: 60
+  delay: 5
 
 - name: Set default python
   alternatives:
