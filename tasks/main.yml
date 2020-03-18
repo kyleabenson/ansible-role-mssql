@@ -3,7 +3,7 @@
     msg: "Check to see if EULA variables are accepted"
   failed_when: (end_user_license_aggreement_consent_server != "Y" )or (end_user_license_aggreement_consent_cli != "YES")
 
-- name: Add MSFT yum repositories
+- name: Add Microsoft yum repositories for SQL Server 2019 on RHEL 8
   yum_repository:
     name: packages-microsoft-com-mssql-server-2019-gdr
     description: packages-microsoft-com-mssql-server-2019-gdr
@@ -11,13 +11,13 @@
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     gpgcheck: true
 
-- name: Install SQL package
+- name: Install Microsoft SQL Server package
   yum:
     name: mssql-server
     state: present
   register: install
 
-- name: Install MSFT repo
+- name: Install Microsoft repository for SQL Server tools
   yum_repository:
     name: packages-microsoft-com-prod
     description: Microsoft packages
@@ -25,7 +25,7 @@
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     gpgcheck: true
 
-- name: Install client tools
+- name: Install SQL Server client tools
   yum:
     name: "{{ item }}"
     state: present
@@ -60,19 +60,19 @@
 #   register: sqlcmd
 #   ignore_errors: true
 
-- name: Stop any existing mssql-server
+- name: Stop any existing running SQL Server service
   service:
       name: mssql-server
       state: stopped
 
-- name: Run mssql-conf setup
+- name: Run SQL Server setup mssql-conf 
   command: /opt/mssql/bin/mssql-conf -n setup accept-eula
   environment:
     - MSSQL_SA_PASSWORD: "{{ db_password }}"
     - MSSQL_PID: "{{ edition }}"
   when: install is changed
 
-- name: Add mssql-tools to $PATH
+- name: Add mssql-tools to bash profile
   lineinfile:
     path: "{{ item }}"
     line: export PATH="$PATH:/opt/mssql-tools/bin"
