@@ -1,9 +1,4 @@
 ---
-- name: Place SQL file on system for import
-  copy:
-    src: "{{ import_file }}"
-    dest: "{{ import_file_dest }}"
-
 - name: Import SQL File
   mssql_db:
     name: "{{ db_name }}"
