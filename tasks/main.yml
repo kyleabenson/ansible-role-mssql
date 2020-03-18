@@ -48,6 +48,16 @@
   yum:
     name: "*"
     state: latest
+  async: 500
+  poll: 0
+  register: yum_sleep
+
+- name: Check progress of update
+  async_status:
+    jid: "{{ yum_sleep.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 60
 
 - name: Set default python
   alternatives:
