@@ -1,6 +1,6 @@
 galaxy_info:
-  author: Kyle Benson
-  description: Microsoft SQL Server for RHEL 7
+  author: Don Pinto
+  description: Microsoft SQL Server 2019 for RHEL 8
   company: "Red Hat Inc"
 
   # If the issue tracker for your role is not on github, uncomment the
