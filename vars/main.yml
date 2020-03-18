@@ -1,7 +1,7 @@
 ---
 end_user_license_aggreement_consent_server: Y # Must be Y or N
 end_user_license_aggreement_consent_cli: "YES" # Must be YES or NO in all caps within quotes
-edition: Developer
+edition: evaluation
 
 # For use when creating, importing, or deleting databases
 db_name: testDB
